@@ -1,0 +1,17 @@
+development:
+  adapter: mysql2
+  host: 127.0.0.1
+  socket: /tmp/mysql.sock
+  database: eliot_development
+  username: root
+  password: 
+  encoding: utf8
+
+test:
+  adapter: mysql2
+  host: 127.0.0.1
+  socket: /tmp/mysql.sock
+  database: eliot_development
+  username: root
+  password: 
+  encoding: utf8
