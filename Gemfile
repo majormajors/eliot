@@ -27,3 +27,4 @@ end
 
 gem 'jquery-rails'
 gem 'faraday'
+gem 'twitter-bootstrap-rails'

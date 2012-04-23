@@ -1,0 +1,30 @@
+<h1>Servers</h1>
+<table class="table table-striped">
+ <thead>
+  <tr>
+    <th>ID</th>
+        <th>
+      <%= t("activerecord.attributes.server.name", :default => t("activerecord.labels.name", :default => "Name")) %>
+    </th>
+        <th>Created at</th>
+    <th>Actions</th>
+  </tr>
+  </thead>
+  <tbody>
+  <% @servers.each do |server| -%>
+   <tr>
+    <td><%= server.id %></td>
+        <td><%= link_to server.name, server_path(server) %>
+    </td>
+        <td><%= server.created_at %></td>
+    <td>
+      <%= link_to "Show", server_path(server) %>
+      <%= link_to "Edit", edit_server_path(server) %>
+      <%= link_to "Destroy", server_path(server), :method => :delete, :confirm => "#{t("web-app-theme.confirm", :default => "Are you sure?")}" %>
+    </td>
+    </tr>
+    <% end -%>
+   </tbody>
+</table>
+
+<%= link_to "New", new_server_path, :class => 'btn btn-primary' %>
