@@ -14,10 +14,10 @@ class Server < ActiveRecord::Base
   end
 
   def version
-    http_get("/version", :plain)
+    http_get("/version")
   end
 
-  def query(query, start_time, end_time=Time.now)
+  def query(query, start_time, end_time=Time.now.getutc)
     query_string = "/q?m=%s&start=%s&end=%s&%%s" % [ query, format_query_time(start_time), format_query_time(end_time) ]
     results = http_get(query_string % [ "json" ], :json)
 
@@ -26,6 +26,7 @@ class Server < ActiveRecord::Base
       response = http_get(query_string % [ 'ascii' ], :ascii)
       results[:results] = parse_query_results(response)
     end
+    results
   end
 
 private
@@ -53,11 +54,11 @@ private
   end
 
   def format_query_time(time)
-    time.strftime("%Y/%m/%d-%H:%M:%S")
+    time.getutc.strftime("%Y/%m/%d-%H:%M:%S")
   end
 
   def parse_query_results(response)
-    results = response.scan(/^([a-zA-Z0-9\.]+)\s+(\d{10})\s+(\d+(?:\.\d+)?)\s+(.+)$/)
+    results = response.scan(/^(\S+)\s+(\d{10})\s+(\d+(?:\.\d+)?)\s+(.+)$/)
     results.map do |row|
       {
         :name => row[0],

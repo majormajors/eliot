@@ -5,13 +5,22 @@
 <label class="label"><%= t("activerecord.attributes.server.base_url", :default => t("activerecord.labels.base_url", :default => "Base url")) %>:</label>
 <p><%= @server.base_url %></p>
 
+<label class="label"><%= t("activerecord.attributes.server.version", :default => "Version") %>:</label>
+<p><%= @server.version %></p>
+
 <label class="label"><%= t("activerecord.attributes.server.metrics", :default => "Metrics") %>:</label>
 <p>
-  <ul>
-    <% @server.suggest.each do |metric| -%>
-    <li><%= metric %></li>
-    <% end -%>
-  </ul>
+<%= form_for @server, :url => url_for, :method => :get do |f| %>
+  <%= select_tag :aggregator, options_for_select( ['avg', 'sum' ] ) %>
+  <%= select_tag :metric, options_for_select(@server.suggest) %><br/>
+  <%= text_field_tag :start, "", :placeholder => "Start" %>
+  <%= text_field_tag :end, "", :placeholder => "End" %>
+  <%= f.submit "Graph" %>
+<% end -%>
+
+<% if params[:metric] -%>
+  <%= build_graph(@server, params[:metric], params[:aggregator], params[:start], params[:end]) %>
+<% end -%>
 </p>
 
 <div class="form-actions">
