@@ -13,4 +13,6 @@
 //= require jquery
 //= require jquery_ujs
 //= require twitter/bootstrap
+//= require d3.v2.js
+//= require cubism.v1.js
 //= require_tree .

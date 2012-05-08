@@ -1,4 +1,6 @@
 Eliot::Application.routes.draw do
+  resources :graphs
+
   resources :servers
 
   # The priority is based upon order of creation:

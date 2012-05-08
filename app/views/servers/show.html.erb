@@ -13,13 +13,13 @@
 <%= form_for @server, :url => url_for, :method => :get do |f| %>
   <%= select_tag :aggregator, options_for_select( ['avg', 'sum' ] ) %>
   <%= select_tag :metric, options_for_select(@server.suggest) %><br/>
-  <%= text_field_tag :start, "", :placeholder => "Start" %>
-  <%= text_field_tag :end, "", :placeholder => "End" %>
+  <%# text_field_tag :start, "", :placeholder => "Start" %>
+  <%# text_field_tag :end, "", :placeholder => "End" %>
   <%= f.submit "Graph" %>
 <% end -%>
 
 <% if params[:metric] -%>
-  <%= build_graph(@server, params[:metric], params[:aggregator], params[:start], params[:end]) %>
+  <%= build_graph(@server, params[:metric], params[:aggregator], 2.hours.ago.getutc, Time.now.getutc) %>
 <% end -%>
 </p>
 

@@ -1,6 +1,8 @@
 class Server < ActiveRecord::Base
   attr_accessible :base_url, :name
 
+  has_many :graphs
+
   def aggregators(format=:json)
     http_get("/aggregators", format)
   end
@@ -26,7 +28,12 @@ class Server < ActiveRecord::Base
       response = http_get(query_string % [ 'ascii' ], :ascii)
       results[:results] = parse_query_results(response)
     end
+
     results
+  end
+
+  def to_s
+    self.base_url.to_s
   end
 
 private
