@@ -11,24 +11,14 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120507192944) do
-
-  create_table "graphs", :force => true do |t|
-    t.string   "name"
-    t.text     "description"
-    t.string   "query"
-    t.integer  "server_id"
-    t.datetime "created_at",  :null => false
-    t.datetime "updated_at",  :null => false
-  end
-
-  add_index "graphs", ["server_id"], :name => "index_graphs_on_server_id"
+ActiveRecord::Schema.define(:version => 20120510214533) do
 
   create_table "servers", :force => true do |t|
     t.string   "name"
     t.string   "base_url"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
+    t.datetime "created_at",                :null => false
+    t.datetime "updated_at",                :null => false
+    t.integer  "scale",      :default => 0
   end
 
 end
