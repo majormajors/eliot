@@ -1,7 +1,10 @@
 context = cubism.context()
                 .serverDelay(10000)
                 .step(1000)
-                .size(720)
+                .size(700)
+
+window.context = ->
+  context
 
 addMetric = (e) ->
   $this =$ this
@@ -20,24 +23,19 @@ addMetric = (e) ->
   return false
 
 loadMetric = (div) ->
-  console.log('load metric called', div)
-  tsdb = window.tsdb()
-  console.log(tsdb)
-
   query = div.attr('data-metric-query')
   scale = div.attr('data-metric-scale')
 
   if typeof scale == 'undefined' || scale == 0
     scale = 100
 
-  console.log(query,scale)
+  tsdb = window.tsdb()
   metric = tsdb.metric(query)
-  console.log(metric)
-  div.data(metric).enter()
-     .append('div')
-     .attr('class', 'horizon')
-     .call(context.horizon().extent(scale).height(50))
-  console.log(div)
+  horizon = context.horizon()
+    .metric(metric)
+    .extent([0, scale])
+    .height(100)
+  div.call(horizon)
 
 $ ->
   $graph =$ '#ts-graph'
