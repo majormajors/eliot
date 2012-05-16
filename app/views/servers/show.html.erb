@@ -1,4 +1,3 @@
-
 <label class="label"><%= t("activerecord.attributes.server.name", :default => t("activerecord.labels.name", :default => "Name")) %>:</label>
 <p><%= @server.name %></p>
 
@@ -8,18 +7,16 @@
 <label class="label"><%= t("activerecord.attributes.server.version", :default => "Version") %>:</label>
 <p><%= @server.version %></p>
 
-<label class="label"><%= t("activerecord.attributes.server.metrics", :default => "Metrics") %>:</label>
+<label class="label"><%= t("activerecord.attributes.server.reports", :default => "Reports") %>:</label>
 <p>
-<%= form_for @server, :url => url_for, :method => :get do |f| %>
-  <%= select_tag :aggregator, options_for_select( ['avg', 'sum' ] ) %>
-  <%= select_tag :metric, options_for_select(@server.suggest) %><br/>
-  <%# text_field_tag :start, "", :placeholder => "Start" %>
-  <%# text_field_tag :end, "", :placeholder => "End" %>
-  <%= f.submit "Graph" %>
+<ul>
+<% @server.reports.each do |report| -%>
+<li><%= link_to report, server_report_path(@server, report) %></li>
 <% end -%>
-
-<% if params[:metric] -%>
-  <%= build_graph(@server, params[:metric], params[:aggregator], 2.hours.ago.getutc, Time.now.getutc) %>
+</ul>
+<%= form_for [@server, @server.reports.build] do |f| -%>
+<%= f.text_field :name, :placeholder => t("activerecord.attributes.report.name", :default => "Report Name") %>
+<%= f.submit %>
 <% end -%>
 </p>
 

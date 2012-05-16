@@ -1,0 +1,22 @@
+<h2><%= @report.name %></h2>
+
+<p>
+<div id="ts-graph" data-server-url="<%= current_server.base_url %>">
+<div class="axis"></div>
+<% Array(@report.queries).each do |query| -%>
+  <div class="horizon" data-metric-query="<%= query[:query] %>" data-metric-scale="<%= query[:scale] %>">
+  </div>
+<% end -%>
+</div>
+<%= form_for [current_server, @report], :html => { :class => 'add-metric' } do |f| -%>
+  <%= select_tag :aggregator, options_for_select(current_server.aggregators.sort) %>
+  <%= select_tag :metric, options_for_select(current_server.suggest) %>
+  <%= number_field_tag :scale, 100, :style => "width: 75px", :min => 0, :step => 10 %>
+  <%= f.submit "Add metric" %>
+<% end -%>
+</p>
+
+<div class="form-actions">
+<%= link_to "Back", server_path(current_server), :class => 'btn'  %>
+<%= link_to "Delete", server_report_path(current_server, @report), :method => "delete", :confirm => "#{t("web-app-theme.confirm", :default => "Are you sure?")}", :class => 'btn' %>
+</div>

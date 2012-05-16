@@ -11,14 +11,24 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120510214533) do
+ActiveRecord::Schema.define(:version => 20120510231825) do
+
+  create_table "reports", :force => true do |t|
+    t.string   "name",                            :null => false
+    t.string   "description"
+    t.text     "queries",     :limit => 16777215
+    t.integer  "server_id"
+    t.datetime "created_at",                      :null => false
+    t.datetime "updated_at",                      :null => false
+  end
+
+  add_index "reports", ["server_id"], :name => "index_reports_on_server_id"
 
   create_table "servers", :force => true do |t|
     t.string   "name"
     t.string   "base_url"
-    t.datetime "created_at",                :null => false
-    t.datetime "updated_at",                :null => false
-    t.integer  "scale",      :default => 0
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
   end
 
 end

@@ -62,6 +62,7 @@ GEM
       capybara (>= 1.1.2)
       cucumber (>= 1.1.8)
       nokogiri (>= 1.5.0)
+    database_cleaner (0.7.2)
     debugger (1.1.1)
       columnize (>= 0.3.1)
       debugger-linecache (~> 1.1)
@@ -188,6 +189,7 @@ DEPENDENCIES
   bond
   coffee-rails (~> 3.2.1)
   cucumber-rails
+  database_cleaner
   debugger
   faraday
   jquery-rails
