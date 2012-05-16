@@ -33,6 +33,7 @@ loadMetric = (div) ->
   metric = tsdb.metric(query)
   horizon = context.horizon()
     .metric(metric)
+    .title(query)
     .extent([0, scale])
     .height(100)
   div.call(horizon)
@@ -48,5 +49,6 @@ $ ->
 
   d3.select('#ts-graph').call (holder) ->
     holder.select('.axis').call(context.axis().orient('top'))
+    holder.append('div').attr('class','rule').call(context.rule())
     holder.selectAll('.horizon').each ->
       loadMetric(this)
