@@ -1,6 +1,7 @@
 Eliot::Application.routes.draw do
-  resources :servers do
-    resources :reports
+  resources :servers
+  resources :reports do
+    resources :metrics
   end
   root :to => 'servers#index'
 end

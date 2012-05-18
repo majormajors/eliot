@@ -2,6 +2,7 @@ class Server < ActiveRecord::Base
   attr_accessible :base_url, :name
 
   has_many :reports
+  has_many :metrics
 
   def aggregators(format=:json)
     http_get("/aggregators", format)

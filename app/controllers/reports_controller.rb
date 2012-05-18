@@ -1,32 +1,33 @@
 class ReportsController < ApplicationController
-  helper_method :current_server
   respond_to :html, :json
 
+  def index
+    @reports = Report.all
+  end
+
   def show
-    @report = current_server.reports.find(params[:id])
+    @report = Report.find(params[:id])
+  end
+
+  def new
+    @report = Report.new    
   end
 
   def create
-    @report = current_server.reports.build(params[:report])
+    @report = Report.new(params[:report])
     @report.save
-    respond_with(current_server, @report)
+    respond_with(@report)
   end
 
   def update
-    @report = current_server.reports.find(params[:id])
+    @report = Report.find(params[:id])
     @report.update_attributes(params[:report])
-    respond_with(current_server, @report)
+    respond_with(@report)
   end
 
   def destroy
-    @report = current_server.reports.find(params[:id])
+    @report = Report.find(params[:id])
     @report.destroy
-    respond_with(@report, :location => server_path(current_server))
-  end
-
-private
-
-  def current_server
-    @server ||= Server.find(params[:server_id])
+    respond_with(@report)
   end
 end
