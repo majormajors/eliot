@@ -25,11 +25,12 @@ addMetric = (e) ->
 loadMetric = (div) ->
   query = div.attr('data-metric-query')
   scale = div.attr('data-metric-scale')
+  url = div.attr('data-server-url')
 
   if typeof scale == 'undefined' || scale == 0
     scale = 100
 
-  tsdb = window.tsdb()
+  tsdb = window.server(url)
   metric = tsdb.metric(query)
   horizon = context.horizon()
     .metric(metric)
@@ -40,10 +41,6 @@ loadMetric = (div) ->
 
 $ ->
   $graph =$ '#ts-graph'
-
-  tsdb = context.opentsdb($graph.data('server-url'))
-  window.tsdb = ->
-    tsdb
 
   $('.add-metric').bind('submit', addMetric)
 

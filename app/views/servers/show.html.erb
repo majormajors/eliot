@@ -14,7 +14,7 @@
 <li><%= link_to report, server_report_path(@server, report) %></li>
 <% end -%>
 </ul>
-<%= form_for [@server, @server.reports.build] do |f| -%>
+<%= form_for Report.new do |f| -%>
 <%= f.text_field :name, :placeholder => t("activerecord.attributes.report.name", :default => "Report Name") %>
 <%= f.submit %>
 <% end -%>
